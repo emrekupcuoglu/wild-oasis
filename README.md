@@ -1,4 +1,4 @@
-# The Wİld Oasis
+# The Wild Oasis
 
 This is a management panel for a hotel. You can check-in and check-out guests create/update cabins, and see the statistics of the hotel in detail using this panel.
 
