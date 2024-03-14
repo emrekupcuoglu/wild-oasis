@@ -21,7 +21,9 @@ function LoginForm() {
   }
 
   const queryClient = useQueryClient();
-  const { register, reset, handleSubmit } = useForm<ILogin>();
+  const { register, reset, handleSubmit } = useForm<ILogin>({
+    defaultValues: { email: "emre@example.com", password: "pass0987" },
+  });
   const { login, isLoggingIn, loginError } = useLogin();
   const { user, isAuthenticated, isPending } = useUser();
   const navigate = useNavigate();
