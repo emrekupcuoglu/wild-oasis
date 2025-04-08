@@ -84,14 +84,19 @@ function Modal({
 interface OpenProps {
   children: React.ReactElement;
   opens: string;
+  render?: any;
 }
-function Open({ children, opens: windowName }: OpenProps) {
-  // We have the Button as a child of the Open, because we want the use to be able use its own custom button component. But when we do this the <Button/> no has no way of accessing the open function. It is passed in with the child prop and because of this we can not pass the open function to the <Button/>
-  // * To fix this we will sue cloneElement.
+function Open({ children, opens: windowName, render }: OpenProps) {
+  // We have the Button as a child of the Open, because we want to be able use its own custom button component. But when we do this the <Button/> has no way of accessing the open function. It is passed in with the child prop and because of this we can not pass the open function to the <Button/>
+  // * To fix this we will use cloneElement.
   // ! cloneElement should not be overused, or not used at all before trying its alternatives in the React docs. We can use renderProps to solve this issue.
-  // cloneElement let us to create a react element based on another one, and when doing this we can also pass in props which will solve the issue of passing the prop
+  // cloneElement lets us to create a react element based on another one, and when doing this we can also pass in props which will solve the issue of passing the prop
   const { open } = useContext(ModalContext);
+  // This also overwrites the current onClick handler on the children
+  // e.g. before we used cloneElement the delete buttons on BookingDetail deleted the booking without asking anything because it already was deleting when that button was pressed before we added the modal. But the cloneElement overwritten the delete onClick handler to the open handler
+
   return cloneElement(children, { onClick: () => open(windowName) });
+  // return render(() => open(windowName));
 }
 
 // ! Reason to use portal
@@ -110,6 +115,11 @@ function Window({ children, name }: WindowProps) {
   // createPortal takes in the JSX as the first argument, and takes the container for where the JSX will be rendered as the second argument. It also takes in an optional argument of key
   return createPortal(
     <Overlay>
+      {/* We can use onClick={close} instead of using a ref and get the same result, BUT only for this kind of click detection, because we are not detecting a click outside when we do this, we are actually detecting a click on the overlay, which is fine for this use case because we always have the overlay with the modal, but if we did not or use the outside click detection for something else it would not work. 
+      egg. We are also using the outside click detection on the Menus Component and it needs this approach to work correctly
+      
+       */}
+      {/* <Overlay onClick={close}> */}
       <StyledModal ref={ref}>
         <Button onClick={close}>
           <HiXMark />

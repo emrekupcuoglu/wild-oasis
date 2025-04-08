@@ -145,7 +145,21 @@ function BookingRow({ booking }: BookingRowProps) {
                   </Menus.Button>
                 )}
 
-                <Modal.Open opens="edit-booking">
+                <Modal.Open
+                  opens="edit-booking"
+                  // This is an example for using render props instead of cloneElement, the render prop is not in use right now but this shows how to do it
+                  render={(onClick: () => void) => {
+                    // console.log("open", open);
+                    return (
+                      <Menus.Button
+                        onClick={() => onClick()}
+                        icon={<HiPencil />}
+                      >
+                        Edit
+                      </Menus.Button>
+                    );
+                  }}
+                >
                   <Menus.Button icon={<HiPencil />}>Edit</Menus.Button>
                 </Modal.Open>
                 <Modal.Open opens="confirm-delete">

@@ -128,6 +128,8 @@ export async function updateCurrentUser({
     return data;
   }
 
+  if (avatar && avatar.type.startsWith("image/") === false)
+    throw new Error("Only images are allowed");
   // 2. Upload the avatar image
   const fileName = `avatar-${userId}-${Math.random()}`;
 
