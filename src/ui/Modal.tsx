@@ -84,9 +84,8 @@ function Modal({
 interface OpenProps {
   children: React.ReactElement;
   opens: string;
-  render?: any;
 }
-function Open({ children, opens: windowName, render }: OpenProps) {
+function Open({ children, opens: windowName }: OpenProps) {
   // We have the Button as a child of the Open, because we want to be able use its own custom button component. But when we do this the <Button/> has no way of accessing the open function. It is passed in with the child prop and because of this we can not pass the open function to the <Button/>
   // * To fix this we will use cloneElement.
   // ! cloneElement should not be overused, or not used at all before trying its alternatives in the React docs. We can use renderProps to solve this issue.
