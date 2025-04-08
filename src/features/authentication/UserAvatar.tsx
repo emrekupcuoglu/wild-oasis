@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { useUser } from "./useUser";
+import { Link } from "react-router-dom";
 
 const StyledUserAvatar = styled.div`
   display: flex;
@@ -29,13 +30,15 @@ function UserAvatar() {
   const { fullName, avatar } = user.user_metadata;
 
   return (
-    <StyledUserAvatar>
-      <Avatar
-        src={avatar || "../../../public/default-user.jpg"}
-        alt={`Avatar of ${fullName}`}
-      />
-      <span>{fullName}</span>
-    </StyledUserAvatar>
+    <Link to={"/account"}>
+      <StyledUserAvatar>
+        <Avatar
+          src={avatar || "../../../public/default-user.jpg"}
+          alt={`Avatar of ${fullName}`}
+        />
+        <span>{fullName}</span>
+      </StyledUserAvatar>
+    </Link>
   );
 }
 
