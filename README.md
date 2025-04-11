@@ -1,4 +1,4 @@
-# [The Cozy Cove](https://wild-oasis-orpin.vercel.app/)
+# [The Wild Oasis](https://wild-oasis-orpin.vercel.app/)
 
 This is a management panel for a hotel. You can check-in and check-out guests create/update cabins, and see the statistics of the hotel in detail using this panel.
 
